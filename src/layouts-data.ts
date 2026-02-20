@@ -15,7 +15,7 @@ const layouts: Layout[] = [
   {
     name: "Dinas Mawddwy",
     owner: "Barry Tresadern",
-    gauge: "OO9",
+    gauge: "O",
     scale: "7mm:1ft",
     theme: "Welsh branch line, 1930s GWR",
     description:
@@ -23,59 +23,6 @@ const layouts: Layout[] = [
     size: "16ft × 3ft or 24ft × 3ft",
     operators: "3–4",
     image: "layout-1.jpg",
-    availability: "available",
-  },
-  {
-    name: "Seagle Bay",
-    owner: "Barry Tresadern",
-    gauge: "N",
-    scale: "1:148",
-    theme: "Coastal town, late 1950s/early 1960s",
-    description:
-      "A small northern coastal town featuring fishing, coal heritage, and mainline railway services. Set in the late 1950s and early 1960s.",
-    size: "14ft × 4ft",
-    image: "layout-2.jpg",
-    availability: "available",
-  },
-  {
-    name: "St. James Pier",
-    owner: "Barry Tresadern",
-    gauge: "N",
-    scale: "1:148",
-    theme: "Seaside pier and station",
-    description:
-      "A compact N gauge layout depicting a seaside pier station with character and charm.",
-    availability: "available",
-  },
-  {
-    name: "Shell Haven",
-    owner: "Barry Tresadern",
-    gauge: "OO",
-    scale: "1:76",
-    theme: "Industrial Essex riverside",
-    description:
-      "Based on the real Shell Haven area on the Thames Estuary in Essex — an industrial setting with oil refinery and riverside character.",
-    image: "layout-3.jpg",
-    availability: "available",
-  },
-  {
-    name: "Aldwych UG",
-    owner: "Barry Tresadern",
-    gauge: "OO",
-    scale: "1:76",
-    theme: "London Underground terminus",
-    description:
-      "Recreates the closed Aldwych Underground station on the former Piccadilly Line branch. A unique and atmospheric subject.",
-    availability: "available",
-  },
-  {
-    name: "Jim's Folly",
-    owner: "Barry Tresadern",
-    gauge: "OO",
-    scale: "1:76",
-    theme: "Fictional branch line",
-    description:
-      "A fictional branch line terminus with plenty of shunting interest and operational possibilities.",
     availability: "available",
   },
   {
@@ -88,15 +35,6 @@ const layouts: Layout[] = [
     size: "2.55m × 0.5m",
     image: "layout-4.jpg",
     availability: "retired",
-  },
-  {
-    name: "Black Box Mine Co.",
-    owner: "Barry Tresadern",
-    gauge: "OO9",
-    theme: "Mining operation",
-    description:
-      "A narrow gauge mining layout with industrial character and working stock.",
-    availability: "available",
   },
   {
     name: "Kadeleigh",
@@ -116,24 +54,6 @@ const layouts: Layout[] = [
     theme: "Branch line halt",
     description:
       "A branch line halt layout in OO gauge. Currently available for selected exhibitions only.",
-    availability: "restricted",
-  },
-  {
-    name: "Tal-Y-Bont",
-    owner: "Club layout",
-    gauge: "OO9",
-    theme: "Welsh narrow gauge",
-    description:
-      "A narrow gauge Welsh railway layout capturing the character of the valleys.",
-    availability: "available",
-  },
-  {
-    name: "Llangwynllyn",
-    owner: "Club layout",
-    gauge: "OO9",
-    theme: "Welsh narrow gauge",
-    description:
-      "Another of the club's Welsh narrow gauge layouts, set in a rural Welsh village setting.",
     availability: "restricted",
   },
 ];
