@@ -696,7 +696,7 @@ const CONTACT_CATEGORIES = [
 ];
 
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyJLA2y1yq4Ei_IZeqpeX8s8VRNnr8BfX55KRuOoQbHBdKbZNGUwQfrbSpZFur3XQeBIA/exec";
+  "https://script.google.com/macros/s/AKfycbz98M7A0F_zGweWSj9RzTnEkMn99T4YKqXax51sBizPZE4TPrVcoNS1GTLm3TNMgxtkFQ/exec";
 
 function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
