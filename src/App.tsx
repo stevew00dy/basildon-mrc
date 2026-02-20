@@ -1,9 +1,9 @@
+import { useState } from "react";
 import {
   Calendar,
   Clock,
   Mail,
   MapPin,
-  Phone,
   Train,
   Users,
   ChevronDown,
@@ -18,6 +18,7 @@ import {
   CircleMinus,
   CircleX,
   ExternalLink,
+  Send,
 } from "lucide-react";
 import layoutsData from "./layouts-data";
 import type { Layout } from "./layouts-data";
@@ -366,11 +367,11 @@ function Layouts() {
             love to hear from you.
           </p>
           <a
-            href="mailto:info@basildon-mrc.org.uk"
+            href="#contact"
             className="inline-flex items-center gap-2 text-bmrc-green font-semibold hover:text-bmrc-green-light transition-colors text-sm"
           >
             <Mail className="w-4 h-4" />
-            info@basildon-mrc.org.uk
+            Contact us
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>
@@ -457,10 +458,10 @@ function Exhibition() {
                 book, get in touch.
               </p>
               <a
-                href="mailto:derek@basildon-mrc.org.uk"
+                href="#contact"
                 className="inline-flex items-center gap-2 text-bmrc-green font-semibold hover:text-bmrc-green-light transition-colors text-sm"
               >
-                Contact our Exhibition Manager
+                Get in touch
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
@@ -548,7 +549,7 @@ function ExhibitionDiary() {
             </a>
           )}
           <a
-            href="mailto:info@basildon-mrc.org.uk?subject=Exhibition Diary Submission"
+            href="#contact"
             className="inline-flex items-center gap-2 border border-bmrc-card-border text-bmrc-text font-semibold px-6 py-3 rounded-lg hover:border-bmrc-green hover:text-bmrc-green transition-all text-sm"
           >
             <Mail className="w-4 h-4" />
@@ -612,7 +613,7 @@ function Links() {
           <p className="text-sm text-bmrc-text-light">
             Want to suggest a link?{" "}
             <a
-              href="mailto:info@basildon-mrc.org.uk"
+              href="#contact"
               className="text-bmrc-green font-medium hover:underline"
             >
               Let us know
@@ -673,7 +674,7 @@ function Join() {
         </div>
 
         <a
-          href="mailto:info@basildon-mrc.org.uk"
+          href="#contact"
           className="inline-flex items-center gap-2 bg-bmrc-gold text-bmrc-dark font-bold px-8 py-3.5 rounded-lg hover:bg-bmrc-gold-light transition-all text-base"
         >
           <Mail className="w-5 h-5" />
@@ -684,58 +685,127 @@ function Join() {
   );
 }
 
+const CONTACT_CATEGORIES = [
+  { value: "general", label: "General Enquiry", to: "secretary" },
+  { value: "membership", label: "Membership / Visiting", to: "secretary" },
+  { value: "exhibition", label: "Exhibition Booking", to: "treasurer" },
+  { value: "layouts", label: "Layout Availability", to: "treasurer" },
+  { value: "links", label: "Suggest a Link", to: "secretary" },
+  { value: "other", label: "Other", to: "secretary" },
+];
+
 function Contact() {
+  const [sent, setSent] = useState(false);
+  const [category, setCategory] = useState("general");
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const cat = CONTACT_CATEGORIES.find((c) => c.value === data.get("category")) || CONTACT_CATEGORIES[0];
+    const to = `basildonmrc+${cat.to}`;
+    const subject = `[BMRC Website] ${cat.label}`;
+    const body = `Name: ${data.get("name")}\n\nMessage:\n${data.get("message")}`;
+    const replyTo = data.get("email") as string;
+
+    window.location.href = `mailto:${to}@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}${replyTo ? `&reply-to=${encodeURIComponent(replyTo)}` : ""}`;
+    setSent(true);
+    setTimeout(() => setSent(false), 5000);
+  }
+
   return (
     <section id="contact" className="py-20 bg-bmrc-cream">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-12">
+      <div className="max-w-2xl mx-auto px-6">
+        <div className="text-center mb-10">
           <p className="text-bmrc-green font-display text-sm tracking-widest uppercase mb-3 font-semibold">
             Get in Touch
           </p>
           <h2 className="font-display font-bold text-3xl md:text-4xl text-bmrc-text mb-4">
             Contact the Club
           </h2>
+          <p className="text-bmrc-text-light">
+            Whether it's about membership, exhibitions, or just saying hello —
+            fill in the form below and we'll get back to you.
+          </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
-          <div className="bg-bmrc-card border border-bmrc-card-border rounded-xl p-6 shadow-sm">
-            <h3 className="font-display font-semibold text-lg text-bmrc-text mb-4">
-              General Enquiries
-            </h3>
-            <p className="text-bmrc-text-light text-sm leading-relaxed mb-4">
-              Membership, visits, general questions — all enquiries should be
-              addressed to the club secretary.
-            </p>
-            <a
-              href="mailto:info@basildon-mrc.org.uk"
-              className="inline-flex items-center gap-2 text-bmrc-green font-medium text-sm hover:underline"
-            >
-              <Mail className="w-4 h-4" />
-              info@basildon-mrc.org.uk
-            </a>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-bmrc-card border border-bmrc-card-border rounded-2xl p-8 shadow-sm space-y-5"
+        >
+          <div className="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label className="block text-sm font-medium text-bmrc-text mb-1.5">
+                Your Name *
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
+                placeholder="John Smith"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-bmrc-text mb-1.5">
+                Your Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
+                placeholder="john@example.com"
+              />
+            </div>
           </div>
 
-          <div className="bg-bmrc-card border border-bmrc-card-border rounded-xl p-6 shadow-sm">
-            <h3 className="font-display font-semibold text-lg text-bmrc-text mb-4">
-              Exhibition Bookings
-            </h3>
-            <p className="text-bmrc-text-light text-sm leading-relaxed mb-4">
-              Exhibition managers wishing to book club layouts should contact
-              our exhibition manager.
-            </p>
-            <a
-              href="mailto:derek@basildon-mrc.org.uk"
-              className="inline-flex items-center gap-2 text-bmrc-green font-medium text-sm hover:underline mb-2"
+          <div>
+            <label className="block text-sm font-medium text-bmrc-text mb-1.5">
+              What's this about? *
+            </label>
+            <select
+              name="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+              className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
             >
-              <Mail className="w-4 h-4" />
-              derek@basildon-mrc.org.uk
-            </a>
-            <p className="flex items-center gap-2 text-bmrc-text-light text-sm">
-              <Phone className="w-4 h-4 text-bmrc-green" />
-              01268 574884
-            </p>
+              {CONTACT_CATEGORIES.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
           </div>
-        </div>
+
+          <div>
+            <label className="block text-sm font-medium text-bmrc-text mb-1.5">
+              Message *
+            </label>
+            <textarea
+              name="message"
+              required
+              rows={5}
+              className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all resize-none"
+              placeholder="How can we help?"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="inline-flex items-center gap-2 bg-bmrc-green text-white font-bold px-8 py-3 rounded-lg hover:bg-bmrc-green-light transition-all text-sm w-full sm:w-auto justify-center"
+          >
+            <Send className="w-4 h-4" />
+            {sent ? "Opening your email client..." : "Send Message"}
+          </button>
+
+          {sent && (
+            <p className="text-sm text-bmrc-green font-medium">
+              Your email client should have opened with the message ready to
+              send. If it didn't, please try again.
+            </p>
+          )}
+        </form>
       </div>
     </section>
   );
