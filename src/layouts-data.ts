@@ -7,6 +7,7 @@ export interface Layout {
   description: string;
   size?: string;
   operators?: string;
+  image?: string;
   availability: "available" | "restricted" | "retired";
 }
 
@@ -21,6 +22,7 @@ const layouts: Layout[] = [
       "Depicts Dinas Mawddwy station on the historic Mawddwy Railway that ran between Cemmes Road and Mawddwy from 1866 to 1951. Can be erected in two sizes for different exhibition spaces.",
     size: "16ft × 3ft or 24ft × 3ft",
     operators: "3–4",
+    image: "layout-1.jpg",
     availability: "available",
   },
   {
@@ -32,6 +34,7 @@ const layouts: Layout[] = [
     description:
       "A small northern coastal town featuring fishing, coal heritage, and mainline railway services. Set in the late 1950s and early 1960s.",
     size: "14ft × 4ft",
+    image: "layout-2.jpg",
     availability: "available",
   },
   {
@@ -52,6 +55,7 @@ const layouts: Layout[] = [
     theme: "Industrial Essex riverside",
     description:
       "Based on the real Shell Haven area on the Thames Estuary in Essex — an industrial setting with oil refinery and riverside character.",
+    image: "layout-3.jpg",
     availability: "available",
   },
   {
@@ -82,6 +86,7 @@ const layouts: Layout[] = [
     description:
       "A traditional rural Somerset cider barn, factory and farm setting. Features a narrow gauge railway through adjoining farmland and village, complete with cider press, a pub, and artist's studio.",
     size: "2.55m × 0.5m",
+    image: "layout-4.jpg",
     availability: "retired",
   },
   {

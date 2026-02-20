@@ -263,8 +263,19 @@ function AvailabilityBadge({ status }: { status: Layout["availability"] }) {
 }
 
 function LayoutCard({ layout }: { layout: Layout }) {
+  const basePath = import.meta.env.BASE_URL;
   return (
     <div className="bg-bmrc-card border border-bmrc-card-border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group">
+      {layout.image && (
+        <div className="h-48 overflow-hidden">
+          <img
+            src={`${basePath}${layout.image}`}
+            alt={layout.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+      )}
       <div className="bg-bmrc-green/5 border-b border-bmrc-card-border px-6 py-4 flex items-start justify-between gap-3">
         <div>
           <h3 className="font-display font-bold text-lg text-bmrc-text group-hover:text-bmrc-green transition-colors">
@@ -424,6 +435,17 @@ function Exhibition() {
           </div>
 
           <div className="space-y-5">
+            <div className="rounded-2xl overflow-hidden shadow-md border border-bmrc-card-border aspect-video">
+              <iframe
+                src="https://www.youtube.com/embed/1tn890DGyO0"
+                title="Basildon MRC Exhibition 2024"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+                loading="lazy"
+              />
+            </div>
+
             <div className="bg-bmrc-cream border border-bmrc-card-border rounded-2xl p-8">
               <h3 className="font-display font-bold text-xl text-bmrc-text mb-4">
                 Exhibition Diary
