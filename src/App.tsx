@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Calendar,
   Clock,
@@ -686,31 +686,49 @@ function Join() {
   );
 }
 
+
 const CONTACT_CATEGORIES = [
-  { value: "general", label: "General Enquiry", to: "secretary" },
-  { value: "membership", label: "Membership / Visiting", to: "secretary" },
-  { value: "exhibition", label: "Exhibition Booking", to: "treasurer" },
-  { value: "layouts", label: "Layout Availability", to: "treasurer" },
-  { value: "links", label: "Suggest a Link", to: "secretary" },
-  { value: "other", label: "Other", to: "secretary" },
+  "General Enquiry",
+  "Membership / Visiting",
+  "Exhibition Booking",
+  "Layout Availability",
+  "Suggest a Link",
+  "Other",
 ];
 
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyJLA2y1yq4Ei_IZeqpeX8s8VRNnr8BfX55KRuOoQbHBdKbZNGUwQfrbSpZFur3XQeBIA/exec";
+
 function Contact() {
-  const [sent, setSent] = useState(false);
-  const [category, setCategory] = useState("general");
-  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [category, setCategory] = useState(CONTACT_CATEGORIES[0]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("sent") === "1") {
-      setSent(true);
-      window.history.replaceState({}, "", window.location.pathname + "#contact");
-      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          category,
+          message: data.get("message"),
+        }),
+      });
+      setStatus("sent");
+      form.reset();
+      setCategory(CONTACT_CATEGORIES[0]);
+    } catch {
+      setStatus("error");
     }
-  }, []);
-
-  const cat = CONTACT_CATEGORIES.find((c) => c.value === category) || CONTACT_CATEGORIES[0];
-  const formEndpoint = "https://formsubmit.co/basildonmrc@gmail.com";
+  }
 
   return (
     <section id="contact" className="py-20 bg-bmrc-cream">
@@ -728,7 +746,7 @@ function Contact() {
           </p>
         </div>
 
-        {sent ? (
+        {status === "sent" ? (
           <div className="bg-bmrc-card border border-bmrc-green/30 rounded-2xl p-8 shadow-sm text-center">
             <CircleCheck className="w-12 h-12 text-bmrc-green mx-auto mb-4" />
             <h3 className="font-display font-bold text-xl text-bmrc-text mb-2">
@@ -738,7 +756,7 @@ function Contact() {
               Thanks for getting in touch — we'll get back to you as soon as we can.
             </p>
             <button
-              onClick={() => setSent(false)}
+              onClick={() => setStatus("idle")}
               className="text-sm text-bmrc-green font-semibold hover:underline"
             >
               Send another message
@@ -746,16 +764,9 @@ function Contact() {
           </div>
         ) : (
           <form
-            action={formEndpoint}
-            method="POST"
-            onSubmit={() => setSending(true)}
+            onSubmit={handleSubmit}
             className="bg-bmrc-card border border-bmrc-card-border rounded-2xl p-8 shadow-sm space-y-5"
           >
-            <input type="hidden" name="_subject" value={`[BMRC Website] ${cat.label}`} />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://bmrc.uk?sent=1" />
-            <input type="text" name="_honey" className="hidden" />
-
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-sm font-medium text-bmrc-text mb-1.5">
@@ -787,15 +798,14 @@ function Contact() {
                 What's this about? *
               </label>
               <select
-                name="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 required
                 className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
               >
                 {CONTACT_CATEGORIES.map((c) => (
-                  <option key={c.value} value={c.value}>
-                    {c.label}
+                  <option key={c} value={c}>
+                    {c}
                   </option>
                 ))}
               </select>
@@ -814,13 +824,19 @@ function Contact() {
               />
             </div>
 
+            {status === "error" && (
+              <p className="text-sm text-red-600 font-medium">
+                Something went wrong — please try again or email us directly at basildonmrc@gmail.com
+              </p>
+            )}
+
             <button
               type="submit"
-              disabled={sending}
+              disabled={status === "sending"}
               className="inline-flex items-center gap-2 bg-bmrc-green text-white font-bold px-8 py-3 rounded-lg hover:bg-bmrc-green-light transition-all text-sm w-full sm:w-auto justify-center disabled:opacity-60"
             >
               <Send className="w-4 h-4" />
-              {sending ? "Sending..." : "Send Message"}
+              {status === "sending" ? "Sending..." : "Send Message"}
             </button>
           </form>
         )}
