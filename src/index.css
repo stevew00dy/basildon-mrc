@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bmrc-dark: #1a1a1a;
+  --color-bmrc-charcoal: #2a2a2a;
+  --color-bmrc-slate: #3a3a3a;
+  --color-bmrc-green: #2d5a27;
+  --color-bmrc-green-light: #3d7a35;
+  --color-bmrc-green-dark: #1e3d1a;
+  --color-bmrc-cream: #f5f0e8;
+  --color-bmrc-cream-dark: #e8e0d0;
+  --color-bmrc-gold: #c4993d;
+  --color-bmrc-gold-light: #d4ad5a;
+  --color-bmrc-red: #8b2232;
+  --color-bmrc-text: #2a2a2a;
+  --color-bmrc-text-light: #5a5a5a;
+  --color-bmrc-card: #ffffff;
+  --color-bmrc-card-border: #e0dbd2;
+
+  --font-display: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bmrc-cream);
+  color: var(--color-bmrc-text);
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, var(--color-bmrc-green) 0%, var(--color-bmrc-green-light) 100%);
+}
+
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(26, 26, 26, 0.6) 0%, rgba(26, 26, 26, 0.3) 40%, rgba(45, 90, 39, 0.7) 100%);
+}
+
+.track-pattern {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 30px,
+      rgba(45, 90, 39, 0.03) 30px,
+      rgba(45, 90, 39, 0.03) 32px
+    );
+}
