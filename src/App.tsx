@@ -65,11 +65,12 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center bg-bmrc-green-dark pt-16">
-      <div className="absolute inset-0 hero-overlay" />
-      <div className="absolute inset-0 opacity-10">
-        <div className="w-full h-full track-pattern" />
-      </div>
+    <section className="relative min-h-[85vh] flex items-center justify-center bg-bmrc-green-dark pt-16 overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-20"
+        style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+      />
+      <div className="absolute inset-0 bg-bmrc-green-dark/70" />
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <div className="mb-6">
           <Train className="w-16 h-16 text-bmrc-gold mx-auto mb-4" />
