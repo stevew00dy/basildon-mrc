@@ -11,7 +11,15 @@ import {
   Trophy,
   Heart,
   ArrowRight,
+  Ruler,
+  User,
+  Wrench,
+  CircleCheck,
+  CircleMinus,
+  CircleX,
 } from "lucide-react";
+import layoutsData from "./layouts-data";
+import type { Layout } from "./layouts-data";
 
 function Navbar() {
   return (
@@ -221,18 +229,95 @@ function Gauges() {
   );
 }
 
+function AvailabilityBadge({ status }: { status: Layout["availability"] }) {
+  const config = {
+    available: {
+      icon: <CircleCheck className="w-3.5 h-3.5" />,
+      label: "Available for exhibition",
+      className: "text-emerald-700 bg-emerald-50 border-emerald-200",
+    },
+    restricted: {
+      icon: <CircleMinus className="w-3.5 h-3.5" />,
+      label: "Selected exhibitions only",
+      className: "text-amber-700 bg-amber-50 border-amber-200",
+    },
+    retired: {
+      icon: <CircleX className="w-3.5 h-3.5" />,
+      label: "Retired from exhibition",
+      className: "text-gray-500 bg-gray-50 border-gray-200",
+    },
+  };
+  const c = config[status];
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border ${c.className}`}
+    >
+      {c.icon}
+      {c.label}
+    </span>
+  );
+}
+
+function LayoutCard({ layout }: { layout: Layout }) {
+  return (
+    <div className="bg-bmrc-card border border-bmrc-card-border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group">
+      <div className="bg-bmrc-green/5 border-b border-bmrc-card-border px-6 py-4 flex items-start justify-between gap-3">
+        <div>
+          <h3 className="font-display font-bold text-lg text-bmrc-text group-hover:text-bmrc-green transition-colors">
+            {layout.name}
+          </h3>
+          <p className="text-xs text-bmrc-text-light mt-0.5">{layout.theme}</p>
+        </div>
+        <span className="shrink-0 text-xs font-bold text-white bg-bmrc-green px-3 py-1 rounded-full tracking-wide">
+          {layout.gauge}
+        </span>
+      </div>
+
+      <div className="px-6 py-5">
+        <p className="text-sm text-bmrc-text-light leading-relaxed mb-4">
+          {layout.description}
+        </p>
+
+        <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-bmrc-text-light mb-4">
+          {layout.owner && (
+            <span className="inline-flex items-center gap-1.5">
+              <User className="w-3.5 h-3.5 text-bmrc-green" />
+              {layout.owner}
+            </span>
+          )}
+          {layout.size && (
+            <span className="inline-flex items-center gap-1.5">
+              <Ruler className="w-3.5 h-3.5 text-bmrc-green" />
+              {layout.size}
+            </span>
+          )}
+          {layout.scale && (
+            <span className="inline-flex items-center gap-1.5">
+              <Gauge className="w-3.5 h-3.5 text-bmrc-green" />
+              {layout.scale}
+            </span>
+          )}
+          {layout.operators && (
+            <span className="inline-flex items-center gap-1.5">
+              <Wrench className="w-3.5 h-3.5 text-bmrc-green" />
+              {layout.operators} operators
+            </span>
+          )}
+        </div>
+
+        <AvailabilityBadge status={layout.availability} />
+      </div>
+    </div>
+  );
+}
+
 function Layouts() {
-  const featured = [
-    { name: "St. James Pier", gauge: "N", status: "Available" },
-    { name: "Shell Haven", gauge: "OO", status: "Available" },
-    { name: "Dinas Mawddwy", gauge: "OO9", status: "Available" },
-    { name: "Tal-Y-Bont", gauge: "OO9", status: "Available" },
-    { name: "Kadeleigh", gauge: "OO", status: "Available" },
-    { name: "Felsham Road", gauge: "OO", status: "Restricted" },
-    { name: "Aldwych UG", gauge: "OO", status: "Available" },
-    { name: "Llangwynllyn", gauge: "OO9", status: "Restricted" },
-    { name: "Somerset Cider", gauge: "OO9", status: "Available" },
-  ];
+  const available = layoutsData.filter((l) => l.availability === "available");
+  const restricted = layoutsData.filter(
+    (l) => l.availability === "restricted"
+  );
+  const retired = layoutsData.filter((l) => l.availability === "retired");
+  const sorted = [...available, ...restricted, ...retired];
 
   return (
     <section id="layouts" className="py-20 bg-bmrc-cream track-pattern">
@@ -242,55 +327,37 @@ function Layouts() {
             Our Layouts
           </p>
           <h2 className="font-display font-bold text-3xl md:text-4xl text-bmrc-text mb-4">
-            Layouts available for exhibition
+            Club & member layouts
           </h2>
           <p className="text-bmrc-text-light max-w-2xl mx-auto">
-            Club and member layouts are regularly exhibited across the country.
-            Exhibition managers are welcome to enquire about availability.
+            Our members build and exhibit layouts across the country in a wide
+            range of gauges and settings. Exhibition managers are welcome to
+            enquire about availability.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {featured.map((layout) => (
-            <div
-              key={layout.name}
-              className="bg-bmrc-card border border-bmrc-card-border rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="font-display font-semibold text-bmrc-text">
-                  {layout.name}
-                </h3>
-                <span className="text-xs font-semibold text-bmrc-green bg-bmrc-green/10 px-2 py-0.5 rounded-full">
-                  {layout.gauge}
-                </span>
-              </div>
-              <p className="text-sm text-bmrc-text-light">
-                Status:{" "}
-                <span
-                  className={
-                    layout.status === "Available"
-                      ? "text-bmrc-green font-medium"
-                      : "text-bmrc-gold font-medium"
-                  }
-                >
-                  {layout.status}
-                </span>
-              </p>
-            </div>
+        <div className="grid md:grid-cols-2 gap-5">
+          {sorted.map((layout) => (
+            <LayoutCard key={layout.name} layout={layout} />
           ))}
         </div>
 
-        <div className="text-center mt-8">
-          <p className="text-sm text-bmrc-text-light">
-            30+ layouts in total. Contact{" "}
-            <a
-              href="mailto:info@basildon-mrc.org.uk"
-              className="text-bmrc-green font-medium hover:underline"
-            >
-              info@basildon-mrc.org.uk
-            </a>{" "}
-            for full availability and exhibition bookings.
+        <div className="text-center mt-10 bg-bmrc-card border border-bmrc-card-border rounded-xl p-6 shadow-sm">
+          <p className="text-bmrc-text font-semibold mb-2">
+            Exhibition managers
           </p>
+          <p className="text-sm text-bmrc-text-light mb-4">
+            Want to book one of our layouts for your show? Get in touch — we'd
+            love to hear from you.
+          </p>
+          <a
+            href="mailto:info@basildon-mrc.org.uk"
+            className="inline-flex items-center gap-2 text-bmrc-green font-semibold hover:text-bmrc-green-light transition-colors text-sm"
+          >
+            <Mail className="w-4 h-4" />
+            info@basildon-mrc.org.uk
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
