@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Calendar,
   Clock,
@@ -698,21 +698,19 @@ const CONTACT_CATEGORIES = [
 function Contact() {
   const [sent, setSent] = useState(false);
   const [category, setCategory] = useState("general");
+  const [sending, setSending] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    const cat = CONTACT_CATEGORIES.find((c) => c.value === data.get("category")) || CONTACT_CATEGORIES[0];
-    const to = `basildonmrc+${cat.to}`;
-    const subject = `[BMRC Website] ${cat.label}`;
-    const body = `Name: ${data.get("name")}\n\nMessage:\n${data.get("message")}`;
-    const replyTo = data.get("email") as string;
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("sent") === "1") {
+      setSent(true);
+      window.history.replaceState({}, "", window.location.pathname + "#contact");
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
-    window.location.href = `mailto:${to}@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}${replyTo ? `&reply-to=${encodeURIComponent(replyTo)}` : ""}`;
-    setSent(true);
-    setTimeout(() => setSent(false), 5000);
-  }
+  const cat = CONTACT_CATEGORIES.find((c) => c.value === category) || CONTACT_CATEGORIES[0];
+  const formEndpoint = `https://formsubmit.co/basildonmrc+${cat.to}@gmail.com`;
 
   return (
     <section id="contact" className="py-20 bg-bmrc-cream">
@@ -730,83 +728,102 @@ function Contact() {
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="bg-bmrc-card border border-bmrc-card-border rounded-2xl p-8 shadow-sm space-y-5"
-        >
-          <div className="grid sm:grid-cols-2 gap-5">
+        {sent ? (
+          <div className="bg-bmrc-card border border-bmrc-green/30 rounded-2xl p-8 shadow-sm text-center">
+            <CircleCheck className="w-12 h-12 text-bmrc-green mx-auto mb-4" />
+            <h3 className="font-display font-bold text-xl text-bmrc-text mb-2">
+              Message Sent
+            </h3>
+            <p className="text-bmrc-text-light text-sm mb-6">
+              Thanks for getting in touch — we'll get back to you as soon as we can.
+            </p>
+            <button
+              onClick={() => setSent(false)}
+              className="text-sm text-bmrc-green font-semibold hover:underline"
+            >
+              Send another message
+            </button>
+          </div>
+        ) : (
+          <form
+            action={formEndpoint}
+            method="POST"
+            onSubmit={() => setSending(true)}
+            className="bg-bmrc-card border border-bmrc-card-border rounded-2xl p-8 shadow-sm space-y-5"
+          >
+            <input type="hidden" name="_subject" value={`[BMRC Website] ${cat.label}`} />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://bmrc.uk?sent=1" />
+            <input type="text" name="_honey" className="hidden" />
+
+            <div className="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-sm font-medium text-bmrc-text mb-1.5">
+                  Your Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
+                  placeholder="John Smith"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-bmrc-text mb-1.5">
+                  Your Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
+                  placeholder="john@example.com"
+                />
+              </div>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-bmrc-text mb-1.5">
-                Your Name *
+                What's this about? *
               </label>
-              <input
-                type="text"
-                name="name"
+              <select
+                name="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
                 required
                 className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
-                placeholder="John Smith"
-              />
+              >
+                {CONTACT_CATEGORIES.map((c) => (
+                  <option key={c.value} value={c.value}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
             </div>
+
             <div>
               <label className="block text-sm font-medium text-bmrc-text mb-1.5">
-                Your Email
+                Message *
               </label>
-              <input
-                type="email"
-                name="email"
-                className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
-                placeholder="john@example.com"
+              <textarea
+                name="message"
+                required
+                rows={5}
+                className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all resize-none"
+                placeholder="How can we help?"
               />
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-medium text-bmrc-text mb-1.5">
-              What's this about? *
-            </label>
-            <select
-              name="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-              className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all"
+            <button
+              type="submit"
+              disabled={sending}
+              className="inline-flex items-center gap-2 bg-bmrc-green text-white font-bold px-8 py-3 rounded-lg hover:bg-bmrc-green-light transition-all text-sm w-full sm:w-auto justify-center disabled:opacity-60"
             >
-              {CONTACT_CATEGORIES.map((c) => (
-                <option key={c.value} value={c.value}>
-                  {c.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-bmrc-text mb-1.5">
-              Message *
-            </label>
-            <textarea
-              name="message"
-              required
-              rows={5}
-              className="w-full px-4 py-2.5 rounded-lg border border-bmrc-card-border bg-white text-bmrc-text text-sm focus:outline-none focus:ring-2 focus:ring-bmrc-green/30 focus:border-bmrc-green transition-all resize-none"
-              placeholder="How can we help?"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="inline-flex items-center gap-2 bg-bmrc-green text-white font-bold px-8 py-3 rounded-lg hover:bg-bmrc-green-light transition-all text-sm w-full sm:w-auto justify-center"
-          >
-            <Send className="w-4 h-4" />
-            {sent ? "Opening your email client..." : "Send Message"}
-          </button>
-
-          {sent && (
-            <p className="text-sm text-bmrc-green font-medium">
-              Your email client should have opened with the message ready to
-              send. If it didn't, please try again.
-            </p>
-          )}
-        </form>
+              <Send className="w-4 h-4" />
+              {sending ? "Sending..." : "Send Message"}
+            </button>
+          </form>
+        )}
       </div>
     </section>
   );
