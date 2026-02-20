@@ -17,9 +17,11 @@ import {
   CircleCheck,
   CircleMinus,
   CircleX,
+  ExternalLink,
 } from "lucide-react";
 import layoutsData from "./layouts-data";
 import type { Layout } from "./layouts-data";
+import linksData from "./links-data";
 
 function Navbar() {
   return (
@@ -41,6 +43,7 @@ function Navbar() {
             ["About", "#about"],
             ["Layouts", "#layouts"],
             ["Exhibitions", "#exhibitions"],
+            ["Links", "#links"],
             ["Join Us", "#join"],
             ["Contact", "#contact"],
           ].map(([label, href]) => (
@@ -428,6 +431,70 @@ function Exhibition() {
   );
 }
 
+function Links() {
+  return (
+    <section id="links" className="py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <p className="text-bmrc-green font-display text-sm tracking-widest uppercase mb-3 font-semibold">
+            Useful Links
+          </p>
+          <h2 className="font-display font-bold text-3xl md:text-4xl text-bmrc-text mb-4">
+            Links & resources
+          </h2>
+          <p className="text-bmrc-text-light max-w-2xl mx-auto">
+            A curated collection of links to clubs, heritage railways,
+            associations, traders, and other useful resources for railway
+            modellers.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {linksData.map((category) => (
+            <div
+              key={category.name}
+              className="bg-bmrc-card border border-bmrc-card-border rounded-xl overflow-hidden shadow-sm"
+            >
+              <div className="bg-bmrc-green/5 border-b border-bmrc-card-border px-5 py-3">
+                <h3 className="font-display font-semibold text-bmrc-text">
+                  {category.name}
+                </h3>
+              </div>
+              <ul className="px-5 py-4 space-y-2">
+                {category.links.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-bmrc-text-light hover:text-bmrc-green transition-colors group"
+                    >
+                      <ExternalLink className="w-3 h-3 shrink-0 opacity-40 group-hover:opacity-100 transition-opacity" />
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-8">
+          <p className="text-sm text-bmrc-text-light">
+            Want to suggest a link?{" "}
+            <a
+              href="mailto:info@basildon-mrc.org.uk"
+              className="text-bmrc-green font-medium hover:underline"
+            >
+              Let us know
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Join() {
   return (
     <section id="join" className="py-20 bg-bmrc-green">
@@ -581,6 +648,7 @@ export default function App() {
       <Gauges />
       <Layouts />
       <Exhibition />
+      <Links />
       <Join />
       <Contact />
       <Footer />
