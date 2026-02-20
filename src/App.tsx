@@ -42,7 +42,8 @@ function Navbar() {
           {[
             ["About", "#about"],
             ["Layouts", "#layouts"],
-            ["Exhibitions", "#exhibitions"],
+            ["Our Show", "#exhibitions"],
+            ["Diary", "#diary"],
             ["Links", "#links"],
             ["Join Us", "#join"],
             ["Contact", "#contact"],
@@ -466,6 +467,77 @@ function Exhibition() {
   );
 }
 
+const BMRC_CALENDAR_ID = "YOUR_CALENDAR_ID_HERE";
+
+function ExhibitionDiary() {
+  const calendarConfigured = !BMRC_CALENDAR_ID.includes("YOUR_CALENDAR");
+  const calendarSrc = `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(BMRC_CALENDAR_ID)}&ctz=Europe/London&showTitle=0&showNav=1&showPrint=0&showCalendars=0&mode=AGENDA&bgcolor=%23ffffff`;
+  const subscribeSrc = `https://calendar.google.com/calendar/ical/${encodeURIComponent(BMRC_CALENDAR_ID)}/public/basic.ics`;
+
+  return (
+    <section id="diary" className="py-20 bg-bmrc-cream track-pattern">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-10">
+          <p className="text-bmrc-green font-display text-sm tracking-widest uppercase mb-3 font-semibold">
+            Exhibition Diary
+          </p>
+          <h2 className="font-display font-bold text-3xl md:text-4xl text-bmrc-text mb-4">
+            Upcoming exhibitions
+          </h2>
+          <p className="text-bmrc-text-light max-w-2xl mx-auto">
+            Model railway exhibitions around the region. Shows where BMRC
+            members are exhibiting are highlighted. Subscribe to stay up to
+            date.
+          </p>
+        </div>
+
+        {calendarConfigured ? (
+          <div className="bg-white border border-bmrc-card-border rounded-2xl overflow-hidden shadow-sm">
+            <iframe
+              src={calendarSrc}
+              style={{ borderWidth: 0 }}
+              width="100%"
+              height="500"
+              title="BMRC Exhibition Diary"
+              className="w-full"
+            />
+          </div>
+        ) : (
+          <div className="bg-white border border-bmrc-card-border border-dashed rounded-2xl p-12 text-center">
+            <Calendar className="w-12 h-12 text-bmrc-green/30 mx-auto mb-4" />
+            <p className="text-bmrc-text font-semibold mb-2">
+              Exhibition diary coming soon
+            </p>
+            <p className="text-sm text-bmrc-text-light max-w-md mx-auto">
+              We're setting up our exhibition calendar. In the meantime,
+              contact us for details of upcoming shows.
+            </p>
+          </div>
+        )}
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          {calendarConfigured && (
+            <a
+              href={subscribeSrc}
+              className="inline-flex items-center gap-2 bg-bmrc-green text-white font-semibold px-6 py-3 rounded-lg hover:bg-bmrc-green-light transition-all text-sm"
+            >
+              <Calendar className="w-4 h-4" />
+              Subscribe to Calendar
+            </a>
+          )}
+          <a
+            href="mailto:info@basildon-mrc.org.uk?subject=Exhibition Diary Submission"
+            className="inline-flex items-center gap-2 border border-bmrc-card-border text-bmrc-text font-semibold px-6 py-3 rounded-lg hover:border-bmrc-green hover:text-bmrc-green transition-all text-sm"
+          >
+            <Mail className="w-4 h-4" />
+            Submit an exhibition
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Links() {
   return (
     <section id="links" className="py-20 bg-white">
@@ -683,6 +755,7 @@ export default function App() {
       <Gauges />
       <Layouts />
       <Exhibition />
+      <ExhibitionDiary />
       <Links />
       <Join />
       <Contact />
