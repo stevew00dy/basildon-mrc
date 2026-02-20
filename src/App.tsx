@@ -710,7 +710,7 @@ function Contact() {
   }, []);
 
   const cat = CONTACT_CATEGORIES.find((c) => c.value === category) || CONTACT_CATEGORIES[0];
-  const formEndpoint = `https://formsubmit.co/basildonmrc+${cat.to}@gmail.com`;
+  const formEndpoint = "https://formsubmit.co/basildonmrc@gmail.com";
 
   return (
     <section id="contact" className="py-20 bg-bmrc-cream">
