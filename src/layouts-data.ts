@@ -26,17 +26,6 @@ const layouts: Layout[] = [
     availability: "available",
   },
   {
-    name: "Somerset Cider",
-    owner: "Barry Tresadern",
-    gauge: "Gn15",
-    theme: "Rural Somerset cider farm",
-    description:
-      "A traditional rural Somerset cider barn, factory and farm setting. Features a narrow gauge railway through adjoining farmland and village, complete with cider press, a pub, and artist's studio.",
-    size: "2.55m × 0.5m",
-    image: "layout-4.jpg",
-    availability: "retired",
-  },
-  {
     name: "Kadeleigh",
     owner: "Club layout",
     gauge: "OO",
