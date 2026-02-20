@@ -67,7 +67,7 @@ function Hero() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center bg-bmrc-green-dark pt-16 overflow-hidden">
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-20"
+        className="absolute inset-0 bg-cover bg-center opacity-35"
         style={{ backgroundImage: "url('/hero-bg.jpg')" }}
       />
       <div className="absolute inset-0 bg-bmrc-green-dark/70" />
