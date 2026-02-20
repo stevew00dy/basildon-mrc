@@ -688,12 +688,11 @@ function Join() {
 
 
 const CONTACT_CATEGORIES = [
-  "General Enquiry",
-  "Membership / Visiting",
+  "General Enquiries",
+  "Membership",
   "Exhibition Booking",
-  "Layout Availability",
-  "Suggest a Link",
-  "Other",
+  "Secretary",
+  "Treasury",
 ];
 
 const APPS_SCRIPT_URL =
