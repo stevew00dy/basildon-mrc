@@ -380,9 +380,9 @@ function Exhibition() {
               The BMRC Show
             </h2>
             <p className="text-bmrc-text-light text-lg leading-relaxed mb-5">
-              Every year we host our own model railway exhibition, held on the
-              first full weekend of July. It's a highlight of the club calendar
-              and a great day out for the whole family.
+              Every year we host our own model railway exhibition — a highlight
+              of the club calendar and a great day out for the whole family.
+              15+ layouts across two halls, trade stands, and refreshments.
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
@@ -390,39 +390,74 @@ function Exhibition() {
                 <div>
                   <p className="font-semibold text-bmrc-text text-sm">Venue</p>
                   <p className="text-bmrc-text-light text-sm">
-                    James Hornsby School, Leinster Road off Nicholas Lane,
-                    Basildon, Essex
+                    The Wick Community Centre, Siva Island Way, Wickford, Essex
+                    SS12 9NR
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Calendar className="w-5 h-5 text-bmrc-green mt-0.5 shrink-0" />
+                <Clock className="w-5 h-5 text-bmrc-green mt-0.5 shrink-0" />
                 <div>
-                  <p className="font-semibold text-bmrc-text text-sm">When</p>
+                  <p className="font-semibold text-bmrc-text text-sm">Hours</p>
                   <p className="text-bmrc-text-light text-sm">
-                    First full weekend of July, every year
+                    10:00am – 5:00pm
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Train className="w-5 h-5 text-bmrc-green mt-0.5 shrink-0" />
+                <div>
+                  <p className="font-semibold text-bmrc-text text-sm">
+                    Admission
+                  </p>
+                  <p className="text-bmrc-text-light text-sm">
+                    Adults £8 · Seniors £5 · Children £5 · Family (2+2) £20
                   </p>
                 </div>
               </div>
             </div>
+            <p className="text-bmrc-text-light text-sm mt-5">
+              Large car park available. Check back here or get in touch for
+              the date of our next show.
+            </p>
           </div>
 
-          <div className="bg-bmrc-cream border border-bmrc-card-border rounded-2xl p-8">
-            <h3 className="font-display font-bold text-xl text-bmrc-text mb-4">
-              Exhibition Diary
-            </h3>
-            <p className="text-bmrc-text-light leading-relaxed mb-6">
-              Our members exhibit their layouts at shows across the country
-              throughout the year. If you'd like to see one of our layouts at
-              an upcoming event, or you're an exhibition manager looking to
-              book, get in touch.
-            </p>
+          <div className="space-y-5">
+            <div className="bg-bmrc-cream border border-bmrc-card-border rounded-2xl p-8">
+              <h3 className="font-display font-bold text-xl text-bmrc-text mb-4">
+                Exhibition Diary
+              </h3>
+              <p className="text-bmrc-text-light leading-relaxed mb-6">
+                Our members exhibit their layouts at shows across the country
+                throughout the year. If you'd like to see one of our layouts at
+                an upcoming event, or you're an exhibition manager looking to
+                book, get in touch.
+              </p>
+              <a
+                href="mailto:derek@basildon-mrc.org.uk"
+                className="inline-flex items-center gap-2 text-bmrc-green font-semibold hover:text-bmrc-green-light transition-colors text-sm"
+              >
+                Contact our Exhibition Manager
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+
             <a
-              href="mailto:derek@basildon-mrc.org.uk"
-              className="inline-flex items-center gap-2 text-bmrc-green font-semibold hover:text-bmrc-green-light transition-colors text-sm"
+              href="https://goo.gl/maps/98CKUwJurCEzfdgf9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 bg-bmrc-card border border-bmrc-card-border rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow group"
             >
-              Contact our Exhibition Manager
-              <ArrowRight className="w-4 h-4" />
+              <MapPin className="w-6 h-6 text-bmrc-green shrink-0" />
+              <div>
+                <p className="font-semibold text-bmrc-text text-sm group-hover:text-bmrc-green transition-colors">
+                  View venue on Google Maps
+                </p>
+                <p className="text-xs text-bmrc-text-light">
+                  The Wick Community Centre, Wickford
+                </p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-bmrc-text-light ml-auto shrink-0 group-hover:text-bmrc-green transition-colors" />
             </a>
           </div>
         </div>
