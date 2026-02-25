@@ -43,7 +43,7 @@ function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-bmrc-green shadow-lg" aria-label="Main navigation">
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="#" className="flex items-center gap-3 group">
-          <Train className="w-7 h-7 text-bmrc-gold" />
+          <img src={`${import.meta.env.BASE_URL}bmrc-logo-transparent.png`} alt="BMRC Logo" className="w-9 h-9" />
           <div className="flex flex-col">
             <span className="font-display font-bold text-base text-bmrc-cream tracking-wide leading-tight">
               Basildon MRC
@@ -106,7 +106,7 @@ function Hero() {
       <div className="absolute inset-0 bg-bmrc-green-dark/70" />
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <div className="mb-6">
-          <Train className="w-16 h-16 text-bmrc-gold mx-auto mb-4" />
+          <img src={`${import.meta.env.BASE_URL}bmrc-logo-transparent.png`} alt="Basildon Model Railway Club" className="w-28 h-28 mx-auto mb-4" />
         </div>
 
         <h1 className="font-display font-bold text-4xl md:text-6xl text-bmrc-cream tracking-tight mb-3">
@@ -664,7 +664,7 @@ function Join() {
   return (
     <section id="join" className="py-20 bg-bmrc-green">
       <div className="max-w-4xl mx-auto px-6 text-center">
-        <Train className="w-12 h-12 text-bmrc-gold mx-auto mb-6" />
+        <img src={`${import.meta.env.BASE_URL}bmrc-logo-transparent.png`} alt="BMRC Logo" className="w-20 h-20 mx-auto mb-6" />
         <p className="text-bmrc-gold font-display text-sm tracking-widest uppercase mb-3 font-semibold">
           New Members Welcome
         </p>
@@ -884,7 +884,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div className="flex items-center gap-3">
-            <Train className="w-6 h-6 text-bmrc-gold" />
+            <img src={`${import.meta.env.BASE_URL}bmrc-logo-transparent.png`} alt="BMRC Logo" className="w-8 h-8" />
             <div className="flex flex-col">
               <span className="font-display font-bold text-sm text-bmrc-cream/70 leading-tight">
                 Basildon Model Railway Club
