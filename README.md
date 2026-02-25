@@ -4,7 +4,7 @@ The official website for **Basildon Model Railway Club (BMRC)** — established 
 
 ## Live Site
 
-[bmrc.uk](https://bmrc.uk)
+[basildonmrc.co.uk](https://basildonmrc.co.uk)
 
 ## Dev
 
