@@ -2,15 +2,87 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Basildon Model Railway Club | Est. 1979</title>
+    <meta name="description" content="Basildon Model Railway Club, established 1979. A friendly Essex-based club for model railway enthusiasts of all ages. Weekly meetings, exhibitions, and layouts in OO, O, N, and more." />
+    <meta name="keywords" content="model railway club, Basildon, Essex, OO gauge, O gauge, N gauge, model trains, exhibitions, BMRC, Chiltern Model Railway Association" />
+    <link rel="canonical" href="https://basildonmrc.co.uk/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Basildon Model Railway Club | Est. 1979" />
+    <meta property="og:description" content="A friendly Essex-based club for model railway enthusiasts of all ages. Weekly meetings, exhibitions, and layouts in OO, O, N, and more." />
+    <meta property="og:url" content="https://basildonmrc.co.uk/" />
+    <meta property="og:image" content="https://basildonmrc.co.uk/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Basildon Model Railway Club" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Basildon Model Railway Club | Est. 1979" />
+    <meta name="twitter:description" content="A friendly Essex-based club for model railway enthusiasts of all ages. Weekly meetings, exhibitions, and layouts in OO, O, N, and more." />
+    <meta name="twitter:image" content="https://basildonmrc.co.uk/og-image.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsClub",
+      "name": "Basildon Model Railway Club",
+      "alternateName": "BMRC",
+      "url": "https://basildonmrc.co.uk",
+      "logo": "https://basildonmrc.co.uk/favicon.svg",
+      "image": "https://basildonmrc.co.uk/og-image.png",
+      "description": "A friendly Essex-based club for model railway enthusiasts of all ages, established in 1979.",
+      "foundingDate": "1979",
+      "email": "basildonmrc@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Basildon",
+        "addressRegion": "Essex",
+        "addressCountry": "GB"
+      },
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Chiltern Model Railway Association",
+        "url": "https://www.cmra.org.uk/"
+      },
+      "event": {
+        "@type": "Event",
+        "name": "The BMRC Show — Annual Model Railway Exhibition",
+        "description": "15+ layouts across two halls, trade stands, and refreshments. A great day out for the whole family.",
+        "location": {
+          "@type": "Place",
+          "name": "The Wick Community Centre",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Siva Island Way",
+            "addressLocality": "Wickford",
+            "addressRegion": "Essex",
+            "postalCode": "SS12 9NR",
+            "addressCountry": "GB"
+          }
+        },
+        "offers": [
+          { "@type": "Offer", "name": "Adult", "price": "8.00", "priceCurrency": "GBP" },
+          { "@type": "Offer", "name": "Senior", "price": "5.00", "priceCurrency": "GBP" },
+          { "@type": "Offer", "name": "Child", "price": "5.00", "priceCurrency": "GBP" },
+          { "@type": "Offer", "name": "Family (2+2)", "price": "20.00", "priceCurrency": "GBP" }
+        ]
+      }
+    }
+    </script>
   </body>
 </html>

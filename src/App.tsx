@@ -7,6 +7,8 @@ import {
   Train,
   Users,
   ChevronDown,
+  Menu,
+  X,
   Gauge,
   Trophy,
   Heart,
@@ -24,9 +26,21 @@ import layoutsData from "./layouts-data";
 import type { Layout } from "./layouts-data";
 import linksData from "./links-data";
 
+const NAV_LINKS = [
+  ["About", "#about"],
+  ["Layouts", "#layouts"],
+  ["Our Show", "#exhibitions"],
+  ["Diary", "#diary"],
+  ["Links", "#links"],
+  ["Join Us", "#join"],
+  ["Contact", "#contact"],
+] as const;
+
 function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-bmrc-green shadow-lg">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-bmrc-green shadow-lg" aria-label="Main navigation">
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="#" className="flex items-center gap-3 group">
           <Train className="w-7 h-7 text-bmrc-gold" />
@@ -39,16 +53,9 @@ function Navbar() {
             </span>
           </div>
         </a>
+
         <div className="hidden md:flex items-center gap-8">
-          {[
-            ["About", "#about"],
-            ["Layouts", "#layouts"],
-            ["Our Show", "#exhibitions"],
-            ["Diary", "#diary"],
-            ["Links", "#links"],
-            ["Join Us", "#join"],
-            ["Contact", "#contact"],
-          ].map(([label, href]) => (
+          {NAV_LINKS.map(([label, href]) => (
             <a
               key={label}
               href={href}
@@ -58,7 +65,33 @@ function Navbar() {
             </a>
           ))}
         </div>
+
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden text-bmrc-cream/80 hover:text-bmrc-gold transition-colors"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
+
+      {mobileOpen && (
+        <div className="md:hidden border-t border-bmrc-green-light/30 bg-bmrc-green-dark/95 backdrop-blur-sm">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-3">
+            {NAV_LINKS.map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className="text-sm text-bmrc-cream/80 hover:text-bmrc-gold transition-colors font-medium py-1.5"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
@@ -849,7 +882,7 @@ function Footer() {
   return (
     <footer className="bg-bmrc-dark py-10">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div className="flex items-center gap-3">
             <Train className="w-6 h-6 text-bmrc-gold" />
             <div className="flex flex-col">
@@ -857,14 +890,33 @@ function Footer() {
                 Basildon Model Railway Club
               </span>
               <span className="text-[10px] text-bmrc-cream/30 tracking-wider">
-                Member of the Chiltern Model Railway Association
+                Basildon, Essex · Est. 1979
               </span>
             </div>
           </div>
 
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-bmrc-cream/40">
+            <a
+              href="mailto:basildonmrc@gmail.com"
+              className="hover:text-bmrc-gold transition-colors"
+            >
+              basildonmrc@gmail.com
+            </a>
+            <span className="hidden sm:inline">·</span>
+            <a
+              href="https://www.cmra.org.uk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-bmrc-gold transition-colors"
+            >
+              Chiltern Model Railway Association
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-bmrc-cream/10 text-center">
           <p className="text-sm text-bmrc-cream/30">
-            &copy; {new Date().getFullYear()} Basildon Model Railway Club. Est.
-            1979.
+            &copy; {new Date().getFullYear()} Basildon Model Railway Club
           </p>
         </div>
       </div>
@@ -875,16 +927,21 @@ function Footer() {
 export default function App() {
   return (
     <div className="min-h-screen">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:bg-bmrc-gold focus:text-bmrc-dark focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold focus:text-sm">
+        Skip to main content
+      </a>
       <Navbar />
-      <Hero />
-      <About />
-      <Gauges />
-      <Layouts />
-      <Exhibition />
-      <ExhibitionDiary />
-      <Links />
-      <Join />
-      <Contact />
+      <main id="main-content">
+        <Hero />
+        <About />
+        <Gauges />
+        <Layouts />
+        <Exhibition />
+        <ExhibitionDiary />
+        <Links />
+        <Join />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );
