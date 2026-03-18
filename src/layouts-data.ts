@@ -22,7 +22,6 @@ const layouts: Layout[] = [
       "Depicts Dinas Mawddwy station on the historic Mawddwy Railway that ran between Cemmes Road and Mawddwy from 1866 to 1951. Can be erected in two sizes for different exhibition spaces.",
     size: "16ft × 3ft or 24ft × 3ft",
     operators: "3–4",
-    image: "layout-1.jpg",
     availability: "available",
   },
   {
