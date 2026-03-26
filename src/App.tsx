@@ -3,7 +3,6 @@ import {
   Calendar,
   Clock,
   Mail,
-  MapPin,
   Train,
   Users,
   ChevronDown,
@@ -432,17 +431,15 @@ function Exhibition() {
               of the club calendar and a great day out for the whole family.
               15+ layouts across two halls, trade stands, and refreshments.
             </p>
+            <p className="text-bmrc-text-light text-sm mb-4 border-l-4 border-bmrc-green/40 pl-4">
+              Venue details for the BMRC Show are temporarily unavailable — please
+              check back here or{" "}
+              <a href="#contact" className="text-bmrc-green font-medium hover:underline">
+                contact us
+              </a>
+              .
+            </p>
             <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-bmrc-green mt-0.5 shrink-0" />
-                <div>
-                  <p className="font-semibold text-bmrc-text text-sm">Venue</p>
-                  <p className="text-bmrc-text-light text-sm">
-                    The Wick Community Centre, Siva Island Way, Wickford, Essex
-                    SS12 9NR
-                  </p>
-                </div>
-              </div>
               <div className="flex items-start gap-3">
                 <Clock className="w-5 h-5 text-bmrc-green mt-0.5 shrink-0" />
                 <div>
@@ -501,23 +498,6 @@ function Exhibition() {
               </a>
             </div>
 
-            <a
-              href="https://goo.gl/maps/98CKUwJurCEzfdgf9"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-bmrc-card border border-bmrc-card-border rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow group"
-            >
-              <MapPin className="w-6 h-6 text-bmrc-green shrink-0" />
-              <div>
-                <p className="font-semibold text-bmrc-text text-sm group-hover:text-bmrc-green transition-colors">
-                  View venue on Google Maps
-                </p>
-                <p className="text-xs text-bmrc-text-light">
-                  The Wick Community Centre, Wickford
-                </p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-bmrc-text-light ml-auto shrink-0 group-hover:text-bmrc-green transition-colors" />
-            </a>
           </div>
         </div>
       </div>
